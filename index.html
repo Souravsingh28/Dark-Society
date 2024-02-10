@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Code Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: black;
+      color: white;
+    }
+
+    .center-container {
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2em;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+      }
+      to {
+        text-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+      }
+    }
+
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .popup {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      text-align: center;
+    }
+
+    form {
+      text-align: center;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: rgba(255, 0, 0, 0.7);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: rgba(255, 0, 0, 0.9);
+    }
+
+    #accessButton {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center-container">
+    <h1>Dark Society</h1>
+
+    <audio id="pinSound" src="https://www.soundjay.com/button/button-37.mp3"></audio>
+    <audio id="accessDeniedSound" src="https://www.soundjay.com/button/button-4.mp3"></audio>
+    <audio id="accessGrantedSound" src="https://www.soundjay.com/button/button-3.mp3" loop></audio>
+    
+    <form id="accessForm">
+      <label for="code">Enter Code:</label>
+      <input type="text" id="code" name="code" required>
+      <br>
+      <button type="button" id="verifyButton" onclick="verifyCode()">Verify Code</button>
+      <button type="button" id="submitButton" onclick="checkCode()">Submit</button>
+      <button type="button" id="accessButton" onclick="accessGranted()">Access</button>
+    </form>
+
+    <div id="overlay">
+      <div class="popup">
+        <p>Welcome to Dark Society</p>
+        <button onclick="closePopup()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function playPinSound() {
+      document.getElementById('pinSound').play();
+    }
+
+    function playAccessDeniedSound() {
+      document.getElementById('accessDeniedSound').play();
+    }
+
+    function playAccessGrantedSound() {
+      document.getElementById('accessGrantedSound').play();
+    }
+
+    function checkCode() {
+      const enteredCode = document.getElementById('code').value;
+      const correctCode = '5555'; // Updated access code
+
+      if (enteredCode === correctCode) {
+        document.getElementById('accessButton').style.display = 'inline-block';
+        playPinSound();
+        openPopup();
+      } else {
+        alert('Incorrect code. Please try again.');
+        playAccessDeniedSound();
+      }
+    }
+
+    function verifyCode() {
+      const enteredCode = document.getElementById('code').value;
+      const correctCode = '5555'; // Updated access code
+
+      if (enteredCode === correctCode) {
+        alert('Code verified. You can now submit to access.');
+        document.getElementById('submitButton').style.display = 'inline-block';
+        playPinSound();
+      } else {
+        alert('Incorrect code. Please try again.');
+        playAccessDeniedSound();
+      }
+    }
+
+    function accessGranted() {
+      alert('Access Granted!');
+      playAccessGrantedSound();
+      // Replace 'index.html' with the actual page you want to navigate to
+      window.location.href = 'iindex.html';
+    }
+
+    function openPopup() {
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    function closePopup() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
